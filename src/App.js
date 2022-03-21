@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Container, Stack } from "react-bootstrap";
+import Helmet from "react-helmet";
 import AddBudjetModal from "./components/AddBudjetModal";
 import AddExpenseModal from "./components/AddExpenseModal";
 import BudgetCard from "./components/BudgetCard";
@@ -7,6 +8,7 @@ import DeleteBudjetModal from "./components/DeleteBudjetModal";
 import SeeExpensesModal from "./components/SeeExpensesModal";
 import UncategorizedBudgetCard from "./components/UncategorizedBudgetCard";
 import { useBudgets, UNCATEGORIZED_BUDGET_ID } from "./contexts/BudjetsContext";
+
 
 
 function App() {
@@ -48,9 +50,12 @@ function App() {
   function getExpensesForBudget(ID){
     return getBudgetExpenses(ID).reduce((total, expense)=>total + expense.amount, 0)
   }
+  
+  const TITLE = 'Budget'
 
   return (
     <Container>
+      <Helmet><title>{TITLE}</title></Helmet>
       <Stack direction="horizontal" gap={3} className="mt-2">
         <h1 className="me-auto">Budget</h1>
         <Button onClick={()=>setShowAddBudgetModal(true)} variant="primary">Add Budget</Button>

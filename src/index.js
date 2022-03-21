@@ -5,8 +5,10 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BudgetsProvider } from './contexts/BudjetsContext';
 
+
+
 ReactDOM.render(
-  
+ 
   <React.StrictMode>
     <BudgetsProvider>
       <App />
