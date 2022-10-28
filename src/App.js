@@ -18,9 +18,7 @@ function App() {
   const [showAddExpenseModal, setShowAddExpenseModal]= useState(false)
   const [addExpenseModalId, setAddExpenseModalId]=useState()
   
-  const [showSeeExpenseModal, setShowSeeExpenseModal]=useState(false)
   const [showSeeExpenseModalId, setShowSeeExpenseModalId]=useState()
-  const [showSeeExpenseModalName, setShowSeeExpenseModalName]=useState()
 
   const [showDeleteBudgetModal, setShowDeleteBudgetModal]= useState(false)
   const [showDeleteBudgetModalId, setShowDeleteBudgetModalId]= useState()
@@ -29,10 +27,8 @@ function App() {
   const {budgets, getBudgetExpenses} = useBudgets()
 
 
-  function openSeeExpenseModal(ID,name){
-    setShowSeeExpenseModal(true)
+  function openSeeExpenseModal(ID){
     setShowSeeExpenseModalId(ID)
-    setShowSeeExpenseModalName(name)
   }
   
   function openDeleteBudgetModal(ID,name){
@@ -55,7 +51,9 @@ function App() {
 
   return (
     <Container>
+      
       <Helmet><title>{TITLE}</title></Helmet>
+      
       <Stack direction="horizontal" gap={3} className="mt-2">
         <h1 className="me-auto">Budget</h1>
         <Button onClick={()=>setShowAddBudgetModal(true)} variant="primary">Add Budget</Button>
@@ -76,7 +74,7 @@ function App() {
               max={budget.max} 
               amount={getExpensesForBudget(budget.id)}
               onAddExpenseClick={()=>{openAddExpenseModal(budget.id)}}
-              onSeeExpenseClick={()=>{openSeeExpenseModal(budget.id,budget.name)}}
+              onSeeExpenseClick={()=>{openSeeExpenseModal(budget.id)}}
               onDeleteBudgetClick={()=>{openDeleteBudgetModal(budget.id,budget.name)}}
             />
           )
@@ -86,12 +84,12 @@ function App() {
       <UncategorizedBudgetCard
         amount={getExpensesForBudget(UNCATEGORIZED_BUDGET_ID)} 
         onAddExpenseClick={()=>{openAddExpenseModal(UNCATEGORIZED_BUDGET_ID)}}
-        onSeeExpenseClick={()=>{openSeeExpenseModal(UNCATEGORIZED_BUDGET_ID,"Uncategorized")}}
+        onSeeExpenseClick={()=>{openSeeExpenseModal(UNCATEGORIZED_BUDGET_ID)}}
       /> 
       
       <AddBudjetModal 
         show={showAddBudgetModal} 
-        handleClose={()=> setShowAddBudgetModal(false) }
+        handleClose={()=> setShowAddBudgetModal(false) } 
       />
 
       <AddExpenseModal 
@@ -101,10 +99,8 @@ function App() {
       />
 
       <SeeExpensesModal 
-        show={showSeeExpenseModal}
-        handleClose={()=>setShowSeeExpenseModal(false)}
+        handleClose={()=>setShowSeeExpenseModalId()}
         budgetId={showSeeExpenseModalId}
-        name={showSeeExpenseModalName}
       />
       
       <DeleteBudjetModal
